@@ -1,65 +1,166 @@
-# patch README
+## Voices
 
-This is the README for your extension "patch". After writing up a brief description, we recommend including the following sections.
+**Voices** must be written in all caps, without any spaces before the name and followed by a colon.  
+Examples:
 
-## Features
+- BASS 1:
+- VOICE 1:
+- LEAD:
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+Every connection described after a voice annotation will be assigned to that voice.
 
-For example if there is an image subfolder under your extension project workspace:
+---
 
-\!\[feature X\]\(images/feature-x.png\)
+## Connections
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Every connection (patch cable) must be annotated using the following format: **- Output Module (Output Label) >> Input Module (Input Label)**.  
+Examples:  
 
-## Requirements
+```
+- Maths (Ch. 1 Unity) >> Polaris (CV 2)
+- Tides (Bi) >> Braids (Timbre)
+```
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+While the >> indicator can be used to indicate a standard connection, it could (and should) also be replaced by more specific indicators according to the kind of signal being sent from the Output Module to the Input Module:  
 
-## Extension Settings
+- >> for CV
+- -> for Audio
+- p> for Pitch (1v/oct or Hz/V)
+- g> for Gate
+- t> for Trigger
+- c> for Clock
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+Examples:
 
-For example:
+```
+- Metropolis (Pitch) p> Braids (1 V/Oct)
+- Pamela's Workout (1) c> Penta (Clk)
+- Braids (Out) -> Polaris (Input)
+```
 
-This extension contributes the following settings:
+**Additional info:**
 
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
+- The manufacturer's name should only be included if the module's name is too generic (example: VB Modular ADSR).
+- Non-modular equipment (such as audio interfaces, recorders, and other synths) should be written in all caps: NAME OF GEAR (Input or Output).
+- While specific module names are preferable, they can also be replaced by more generic names such as VCA, ADSR, Oscillator, etc.
 
-## Known Issues
+**Extra arguments:**
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+Additional GraphViz arguments such as color, weight, and style can be appended to the connection line in between brackets and separated by commas. 
 
-## Release Notes
+Example:
+```
+- Metropolis (Pitch) p> Braids (1 V/Oct) [color=red, weight=3]
+```
 
-Users appreciate release notes as you update your extension.
+Supported GraphViz arguments: color, weight, style, dir, and arrowtail.
 
-### 1.0.0
+---
 
-Initial release of ...
+## Parameters
 
-### 1.0.1
+Parameters can be annotated in 2 different ways: single line or multiline. Every parameter annotation must start with an asterisk character before the module name.
 
-Fixed issue #.
+**Single-line**  
+```
+* Function: Rise = 50% | Fall = 50% | Curve = 30%
+```
 
-### 1.1.0
+**Multi-Line**
+```
+* Braids:  
+	| Mode = CSAW  
+	| Color = 50%  
+	| Timbre = 50%  
+```
 
-Added features X, Y, and Z.
+**Additional info**
 
------------------------------------------------------------------------------------------------------------
+- Parameter values can be written as knob / fader position (percentage), specific value followed by unit (5Hz, 10ms, etc.), or as a descriptive value (fast, slow, simple, complex, short, long).
+- Parameters are not assigned to any voice since the same module can be used in multiple voices. 
+ 
+---
 
-## Working with Markdown
+## Comments:
 
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
+Comments can be added to the patch by prepending two forward slashes (//). 
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
+Example:
 
-### For more information
+```
+// This is a nice comment
+```
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+---
 
-**Enjoy!**
+## Examples
+
+---
+
+### Example 1
+
+```
+VOICE 1:
+	- Metropolis (Pitch) p> Braids (1v/oct) [weight=3]
+	- Metropolis (Gate) g> Function (Trigger)
+	- Braids (Out) -> Optomix (Ch1 Signal)
+	- Function (+ Out) >> Optomix (Ch1 CV)
+	- Function (- Out) >> Braids (Timbre CV)
+	- Optomix (Out 1) -> AUDIO INTERFACE (input)
+	
+	* Metropolis:
+	| BPM = 124
+	| Swing = 0
+	| Root = F
+	| Scale = Minor
+	| Mode = F. Forward
+	| Stages = 16
+	
+	* Braids:
+	| Mode = Fold
+	| Timbre = 30%
+	| Timbre CV = -20%
+	| Color = 0%
+
+	* Function: Rise = 50% | Fall = 50% | Curve = 30%
+	* Optomix: Damp = 0% | Control = 100%
+```
+
+### Example 2
+
+```
+VOICE 1:
+
+	- Metropolis (Pitch) p> Aether VCO (CV)
+	- Metropolis (Gate) g> Maths (Ch 1 Trigger)
+	- Metropolis (Gate) g> Maths (Ch 4 Trigger)
+	
+	* Aether VCO: LFO Freq = 5 | LFO PWM = 7
+	- Aether VCO (Pulse) -> Mixer (Ch1)
+	- Aether VCO (Sub 1) -> Tides (Clk)
+	- Tides (Bi) -> Mixer (Ch2)
+	- Aether VCO (Sub 2) -> Z3000 (HSync)
+	- Z3000 (Saw) -> Mixer (Ch3)
+	
+	- MultiLFO (LFO 1) >> Tides (Smoothness)
+	- MultiLFO (LFO 2 Triangle) >> Tides (Shape)
+	- MultiLFO (LFO 3 Triangle) >> Z3000 (PWM)
+	* MultiLFO:
+	| LFO 1 Freq = 3.8
+	| LFO 1 Shape = Sine
+	| LFO 1 S&H = 0
+	| LFO 2 Freq = 1
+	| LFO 3 Freq = 1
+	* Tides: PLL Mode = True | Freq = 60% | Smoothness = 70%
+	* Z3000: Freq = 1pm
+	
+	- Maths (Ch 1) >> Multifilter (CV)
+	- Maths (Ch 4) >> uVCA (Ch1 CV)
+	
+	- Mixer (Output) -> Multifilter (Input)
+	- Multifilter (LPF) -> uVCA (Ch1 Input)
+	- uVCA (Ch1 Output) -> AUDIO INTERFACE (In 3)
+
+```
+Patchbook was created by Ícaro Ferre / Spektro Audio.  
+
