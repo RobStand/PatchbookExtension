@@ -1,0 +1,26 @@
+{
+    "name": "patch",
+    "displayName": "PatchBook Syntax Support",
+    "description": "Syntax highlighting for PatchBook markup language",
+    "version": "0.0.1",
+    "publisher": "RobertStandefer",
+    "engines": {
+        "vscode": "^1.26.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "patch",
+            "aliases": ["PatchBook", "patch"],
+            "extensions": [".patch",".patchml"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "patch",
+            "scopeName": "source.patch",
+            "path": "./syntaxes/patch.tmLanguage.json"
+        }]
+    }
+}
