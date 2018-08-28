@@ -1,0 +1,20 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+---
+name: PatchBook
+scopeName: text.patch
+fileTypes: [patch]
+uuid: 0da65be4-5aac-4b6f-8071-1aadb970b8d9
+
+patterns:
+- comment: VOICE
+  name: string.patch
+  match: (\bVOICE\b)
+
+- comment: Input label
+  name: keyword.patch
+  match: ([^\(]+(?=\)))
+
+- comment: Module identifer
+  name: variable.patch
+  match: (?!\bVOICE\b)(?<!\S)\w+(?!\S)
+...
