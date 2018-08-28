@@ -4,8 +4,11 @@ name: PatchBook
 scopeName: source.patch
 fileTypes: [patch, patchml]
 
-variables:
-  voiceIdentifier: (\bVOICE\b)
+voice-identifier:
+  name: patchbook.voice.identifier.patch
+  match: (\bVOICE\b)
+
+module-identifier:
   moduleIdentifier: (?!\bVOICE\b)(?<!\S)\w+(?!\S)
   outputModule: ({{moduleIdentifier}})
   label: ([^\(]+(?=\)))
@@ -34,3 +37,8 @@ variables:
       (?:\b[0-9][0-9_]*\b(?!\.))                                 # 1
     )(?!\$)
   anyNumber: ({{hexNumber}})|({{binaryNumber}})|({{octalNumber}})|({{decimalNumber}})
+
+repository:
+  statements:
+    patterns:
+    - include: '#label'
