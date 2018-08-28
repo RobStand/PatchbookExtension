@@ -7,14 +7,18 @@ uuid: 0da65be4-5aac-4b6f-8071-1aadb970b8d9
 
 patterns:
 - comment: VOICE
-  name: string.patch
+  name: keyword.patch
   match: (\bVOICE\b)
 
 - comment: Input label
-  name: keyword.patch
+  name: string.patch
   match: ([^\(]+(?=\)))
 
 - comment: Module identifer
   name: variable.patch
   match: (?!\bVOICE\b)(?<!\S)\w+(?!\S)
+
+- comment: Connection
+  name: identifier.patch
+  match: (>>)
 ...

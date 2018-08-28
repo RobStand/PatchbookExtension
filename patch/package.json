@@ -20,7 +20,7 @@
         "grammars": [{
             "language": "patch",
             "scopeName": "text.patch",
-            "path": "./syntaxes/patch.tmLanguage.json"
+            "path": "./syntaxes/PatchBook.tmLanguage"
         }]
     }
 }

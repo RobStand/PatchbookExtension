@@ -12,8 +12,8 @@
 	"repository": {
 		"keywords": {
 			"patterns": [{
-				"name": "keyword.control.patch",
-				"match": "\\b(if|while|for|return)\\b"
+				"name": "keyword.patch",
+				"match": "\\bVOICE\\b"
 			}]
 		},
 		"strings": {
@@ -28,5 +28,5 @@
 			]
 		}
 	},
-	"scopeName": "source.patch"
+	"scopeName": "text.patch"
 }
