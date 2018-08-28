@@ -1,0 +1,44 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+---
+name: PatchBook
+scopeName: text.patch
+fileTypes: [patch, patchml]
+uuid: 0da65be4-5aac-4b6f-8071-1aadb970b8d9
+
+patterns:
+- comment: VOICE
+  name: keyword.patch
+  match: (\bVOICE\b)
+
+- comment: Label
+  name: string.patch
+  match: ([^\(]+(?=\)))
+
+- comment: Module identifer
+  name: variable.patch
+  match: (?!\bVOICE\b)(?<!\S)\w+(?!\S)
+
+- comment: CV Connection
+  name: constant.character.escape.patch
+  match: (>>)
+
+- comment: Audio Connection
+  name: constant.character.escape.patch
+  match: (->)
+
+- comment: Pitch Connection
+  name: constant.character.escape.patch
+  match: (p>)
+
+- comment: Gate Connection
+  name: constant.character.escape.patch
+  match: (g>)
+
+- comment: Trigger Connection
+  name: constant.character.escape.patch
+  match: (t>)
+
+- comment: Clock Connection
+  name: constant.character.escape.patch
+  match: (c>)
+...

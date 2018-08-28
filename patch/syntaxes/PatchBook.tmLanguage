@@ -5,6 +5,7 @@
 	<key>fileTypes</key>
 	<array>
 		<string>patch</string>
+		<string>patchml</string>
 	</array>
 	<key>name</key>
 	<string>PatchBook</string>
@@ -20,7 +21,7 @@
 		</dict>
 		<dict>
 			<key>comment</key>
-			<string>Input label</string>
+			<string>Label</string>
 			<key>match</key>
 			<string>([^\(]+(?=\)))</string>
 			<key>name</key>
@@ -36,11 +37,51 @@
 		</dict>
 		<dict>
 			<key>comment</key>
-			<string>Connection</string>
+			<string>CV Connection</string>
 			<key>match</key>
 			<string>(&gt;&gt;)</string>
 			<key>name</key>
-			<string>identifier.patch</string>
+			<string>constant.character.escape.patch</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>Audio Connection</string>
+			<key>match</key>
+			<string>(-&gt;)</string>
+			<key>name</key>
+			<string>constant.character.escape.patch</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>Pitch Connection</string>
+			<key>match</key>
+			<string>(p&gt;)</string>
+			<key>name</key>
+			<string>constant.character.escape.patch</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>Gate Connection</string>
+			<key>match</key>
+			<string>(g&gt;)</string>
+			<key>name</key>
+			<string>constant.character.escape.patch</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>Trigger Connection</string>
+			<key>match</key>
+			<string>(t&gt;)</string>
+			<key>name</key>
+			<string>constant.character.escape.patch</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>Clock Connection</string>
+			<key>match</key>
+			<string>(c&gt;)</string>
+			<key>name</key>
+			<string>constant.character.escape.patch</string>
 		</dict>
 	</array>
 	<key>scopeName</key>

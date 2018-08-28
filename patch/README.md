@@ -1,166 +1,38 @@
-## Voices
+# Customizing the extension
+The Patchbook markup language is very simple, and the extension adds colorization in a very straightforward way.
 
-**Voices** must be written in all caps, without any spaces before the name and followed by a colon.  
-Examples:
-
-- BASS 1:
-- VOICE 1:
-- LEAD:
-
-Every connection described after a voice annotation will be assigned to that voice.
-
----
-
-## Connections
-
-Every connection (patch cable) must be annotated using the following format: **- Output Module (Output Label) >> Input Module (Input Label)**.  
-Examples:  
+Each feature of the markup language has an entry in the `PatchBook.YAML-tmLanguage` file. For example, here are a couple of patterns:
 
 ```
-- Maths (Ch. 1 Unity) >> Polaris (CV 2)
-- Tides (Bi) >> Braids (Timbre)
+- comment: VOICE
+  name: keyword.patch
+  match: (\bVOICE\b)
+
+- comment: Label
+  name: string.patch
+  match: ([^\(]+(?=\)))
 ```
 
-While the >> indicator can be used to indicate a standard connection, it could (and should) also be replaced by more specific indicators according to the kind of signal being sent from the Output Module to the Input Module:  
+Each pattern has a `comment`, a `name`, and a `match`. The `comment` is just a note about what the pattern is for. The `name` is a scope used in a `tmTheme` file. For example, `string.patch` is the `string` scope, which will have a different color depending on which theme the user loads. And `match` is the regex to match the syntax from the markup language.
 
-- >> for CV
-- -> for Audio
-- p> for Pitch (1v/oct or Hz/V)
-- g> for Gate
-- t> for Trigger
-- c> for Clock
+## Color scheme
+The color theme is based on the typical/standard themes included in VS Code. Scopes in the themes are reused for simplicity. For example, input and output label are colorized as `strings`. 
 
-Examples:
+Currently the extension doesn't recognize the difference between input modules & labels and output modules & labels so it colorizes them the same way. Rather than one wonky regex that excludes what we don't want, the better way to do it is to use `captures` in the syntax definition. I would like to add `captures` to make the separation between inputs and outputs more clear. That is on the roadmap for sure. 
 
-```
-- Metropolis (Pitch) p> Braids (1 V/Oct)
-- Pamela's Workout (1) c> Penta (Clk)
-- Braids (Out) -> Polaris (Input)
-```
+## Updating the syntax rules
+If you want to update the syntax rules to change a scope or add a better set of regexes, you will need to edit the `PatchBook.YAML-tmLanguage` file. I use PackageDev in Sublime Text 3 to generate the `PatchBook.tmLanguage` file. Any change you make to `PatchBook.tmLanguage` is subject to being overwritten if/when PackageDev generates a new version.
 
-**Additional info:**
+If you contribute a PR with changes to the syntax highlighting rules and/or scopes, make sure you put those changes in `PatchBook.YAML-tmLanguage` and generate the `PatchBook.tmLanguage` file. These will need to match in order for the PR to be accepted.
 
-- The manufacturer's name should only be included if the module's name is too generic (example: VB Modular ADSR).
-- Non-modular equipment (such as audio interfaces, recorders, and other synths) should be written in all caps: NAME OF GEAR (Input or Output).
-- While specific module names are preferable, they can also be replaced by more generic names such as VCA, ADSR, Oscillator, etc.
-
-**Extra arguments:**
-
-Additional GraphViz arguments such as color, weight, and style can be appended to the connection line in between brackets and separated by commas. 
-
-Example:
-```
-- Metropolis (Pitch) p> Braids (1 V/Oct) [color=red, weight=3]
-```
-
-Supported GraphViz arguments: color, weight, style, dir, and arrowtail.
-
----
-
-## Parameters
-
-Parameters can be annotated in 2 different ways: single line or multiline. Every parameter annotation must start with an asterisk character before the module name.
-
-**Single-line**  
-```
-* Function: Rise = 50% | Fall = 50% | Curve = 30%
-```
-
-**Multi-Line**
-```
-* Braids:  
-	| Mode = CSAW  
-	| Color = 50%  
-	| Timbre = 50%  
-```
-
-**Additional info**
-
-- Parameter values can be written as knob / fader position (percentage), specific value followed by unit (5Hz, 10ms, etc.), or as a descriptive value (fast, slow, simple, complex, short, long).
-- Parameters are not assigned to any voice since the same module can be used in multiple voices. 
- 
----
-
-## Comments:
-
-Comments can be added to the patch by prepending two forward slashes (//). 
-
-Example:
+## Additional file types
+I chose the `.patch` and `.patchml` file types for their simplicity and the likelihood they are not already used in programming languages. If you want to use a different file type, add it to the `PatchBook.YAML-tmLanguage` file in the `fileTypes` array:
 
 ```
-// This is a nice comment
+fileTypes: [patch, patchml]
 ```
 
----
+## Learning resources
+When building the extension, I relied heavily on the [Sublime Text docs](http://docs.sublimetext.info/en/latest/extensibility/syntaxdefs.html) to understand the YAML file and the [VS Code docs](https://code.visualstudio.com/docs/extensions/themes-snippets-colorizers#_adding-a-new-language-colorizer) to figure out how to build the colorizer in the first place.
 
-## Examples
-
----
-
-### Example 1
-
-```
-VOICE 1:
-	- Metropolis (Pitch) p> Braids (1v/oct) [weight=3]
-	- Metropolis (Gate) g> Function (Trigger)
-	- Braids (Out) -> Optomix (Ch1 Signal)
-	- Function (+ Out) >> Optomix (Ch1 CV)
-	- Function (- Out) >> Braids (Timbre CV)
-	- Optomix (Out 1) -> AUDIO INTERFACE (input)
-	
-	* Metropolis:
-	| BPM = 124
-	| Swing = 0
-	| Root = F
-	| Scale = Minor
-	| Mode = F. Forward
-	| Stages = 16
-	
-	* Braids:
-	| Mode = Fold
-	| Timbre = 30%
-	| Timbre CV = -20%
-	| Color = 0%
-
-	* Function: Rise = 50% | Fall = 50% | Curve = 30%
-	* Optomix: Damp = 0% | Control = 100%
-```
-
-### Example 2
-
-```
-VOICE 1:
-
-	- Metropolis (Pitch) p> Aether VCO (CV)
-	- Metropolis (Gate) g> Maths (Ch 1 Trigger)
-	- Metropolis (Gate) g> Maths (Ch 4 Trigger)
-	
-	* Aether VCO: LFO Freq = 5 | LFO PWM = 7
-	- Aether VCO (Pulse) -> Mixer (Ch1)
-	- Aether VCO (Sub 1) -> Tides (Clk)
-	- Tides (Bi) -> Mixer (Ch2)
-	- Aether VCO (Sub 2) -> Z3000 (HSync)
-	- Z3000 (Saw) -> Mixer (Ch3)
-	
-	- MultiLFO (LFO 1) >> Tides (Smoothness)
-	- MultiLFO (LFO 2 Triangle) >> Tides (Shape)
-	- MultiLFO (LFO 3 Triangle) >> Z3000 (PWM)
-	* MultiLFO:
-	| LFO 1 Freq = 3.8
-	| LFO 1 Shape = Sine
-	| LFO 1 S&H = 0
-	| LFO 2 Freq = 1
-	| LFO 3 Freq = 1
-	* Tides: PLL Mode = True | Freq = 60% | Smoothness = 70%
-	* Z3000: Freq = 1pm
-	
-	- Maths (Ch 1) >> Multifilter (CV)
-	- Maths (Ch 4) >> uVCA (Ch1 CV)
-	
-	- Mixer (Output) -> Multifilter (Input)
-	- Multifilter (LPF) -> uVCA (Ch1 Input)
-	- uVCA (Ch1 Output) -> AUDIO INTERFACE (In 3)
-
-```
-Patchbook was created by Ícaro Ferre / Spektro Audio.  
-
+This [blog post](https://www.apeth.com/nonblog/stories/textmatebundle.html) about scopes is really helpful for identifying the commonly-used scopes and choosing which ones to reuse.
