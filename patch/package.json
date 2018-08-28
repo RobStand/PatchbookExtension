@@ -19,7 +19,7 @@
         }],
         "grammars": [{
             "language": "patch",
-            "scopeName": "source.patch",
+            "scopeName": "text.patch",
             "path": "./syntaxes/patch.tmLanguage.json"
         }]
     }

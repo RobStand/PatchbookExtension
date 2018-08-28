@@ -1,14 +1,15 @@
 # [PackageDev] target_format: plist, ext: tmLanguage
 ---
 name: PatchBook
-scopeName: source.patch
+scopeName: text.patch
 fileTypes: [patch, patchml]
 
-voice-identifier:
-  name: patchbook.voice.identifier.patch
+patterns:
+- name: constant.patch
   match: (\bVOICE\b)
 
-module-identifier:
+variables:
+  voiceIdentifier: 
   moduleIdentifier: (?!\bVOICE\b)(?<!\S)\w+(?!\S)
   outputModule: ({{moduleIdentifier}})
   label: ([^\(]+(?=\)))
