@@ -12,8 +12,8 @@ Open the folder in Visual Studio Code and hit F5. Two test files are included.
 ## Installing the extension
 Create a new folder called *patchbook* in your in your VS Code extensions folder:
 
-- Windows: %USERPROFILE%\.vscode\extensions
-- macOS/Linux: $HOME/.vscode/extensions
+- Windows: `%USERPROFILE%\.vscode\extensions`
+- macOS/Linux: `$HOME/.vscode/extensions`
 
 Then copy the contents of the *patch* folder to the *patchbook* folder.
 
