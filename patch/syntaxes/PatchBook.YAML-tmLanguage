@@ -8,7 +8,7 @@ uuid: 0da65be4-5aac-4b6f-8071-1aadb970b8d9
 patterns:
 - comment: VOICE
   name: keyword.patch
-  match: (\bVOICE\b)
+  match: (\b[A-Z]+\b)
 
 - comment: Label
   name: string.patch

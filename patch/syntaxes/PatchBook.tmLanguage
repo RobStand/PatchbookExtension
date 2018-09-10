@@ -15,7 +15,7 @@
 			<key>comment</key>
 			<string>VOICE</string>
 			<key>match</key>
-			<string>(\bVOICE\b)</string>
+			<string>(\b[A-Z]+\b)</string>
 			<key>name</key>
 			<string>keyword.patch</string>
 		</dict>
