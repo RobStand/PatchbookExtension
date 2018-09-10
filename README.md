@@ -10,12 +10,12 @@ The extension adds syntax highlighting to two file types, `.patch` and `.patchml
 Open the folder in Visual Studio Code and hit F5. Two test files are included.
 
 ## Installing the extension
-Create a new folder called *patchbook* in your in your VS Code extensions folder:
+Download the .ZIP file and place the *patch* folder in your VS Code extensions folder:
 
 - Windows: `%USERPROFILE%\.vscode\extensions`
 - macOS/Linux: `$HOME/.vscode/extensions`
 
-Then copy the contents of the *patch* folder to the *patchbook* folder.
+If you clone the repo, copy the contents of the *patch* folder to appropriate folder under **extensions**.
 
 ## Customizing the extension
 [Customizing](patch/) the extension to add better matches and color choices is easy and welcomed. :rocket:
