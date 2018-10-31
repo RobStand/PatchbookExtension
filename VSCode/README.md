@@ -1,7 +1,7 @@
 # Patchbook extension for Visual Studio Code
 This extension for Visual Studio Code adds syntax highlighting support for the [Patchbook markup language](https://github.com/SpektroAudio/Patchbook). Patchbook is a really useful markup language for documenting patches in modular synthesizers. For really complex patches, things can get hard to figure out, so this extension intends to help with that.
 
-![Colorized example](/images/colorized.png)
+![Colorized example](images/colorized.png)
 
 ## File types
 The extension adds syntax highlighting to two file types, `.patch` and `.patchml`.
